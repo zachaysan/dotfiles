@@ -262,9 +262,13 @@ domain() {
     echo "${domain/www./}"
 }
 
+function tld() {
+  expr match "$(domain $1)" '.*\.\(.*\..*\)'
+}
+
 # whois, but a bit smarter (parse domains out of urls)
 whois() {
-    $(which whois) "$(domain $1)"
+    $(which whois) "$(tld $1)"
     return $?
 }
 
